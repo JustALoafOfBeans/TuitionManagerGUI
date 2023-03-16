@@ -131,12 +131,14 @@
                                     <HBox alignment="CENTER" prefHeight="40.0" prefWidth="700.0">
                                        <children>
                                         <Button mnemonicParsing="false" text="Add" textAlignment="CENTER" />
-                                          <Region prefHeight="200.0" prefWidth="50.0" HBox.hgrow="ALWAYS" />
+                                          <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Remove" />
-                                          <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" prefWidth="50.0" HBox.hgrow="ALWAYS" />
+                                          <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Change Major" />
-                                          <Region layoutX="207.0" layoutY="10.0" prefHeight="200.0" prefWidth="50.0" HBox.hgrow="ALWAYS" />
+                                          <Region layoutX="207.0" layoutY="10.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Load From File" />
+                                          <Region prefHeight="200.0" prefWidth="10.0" />
+                                          <Button mnemonicParsing="false" text="Change Scholarship" textAlignment="CENTER" />
                                        </children>
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
