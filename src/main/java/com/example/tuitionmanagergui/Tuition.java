@@ -1,4 +1,4 @@
-package com.example.tuitionmanagergui;s
+package com.example.tuitionmanagergui;
 
 /**
  An enum class containing all tuition and fees for students (both Resident

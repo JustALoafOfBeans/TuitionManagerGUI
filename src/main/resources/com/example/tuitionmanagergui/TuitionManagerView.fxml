@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuitionmanagergui.TuitionManagerController">
    <center>
       <TabPane prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -32,7 +32,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
+                            <children>
                               <GridPane prefHeight="171.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="134.0" />
@@ -50,36 +50,36 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="First Name" />
-                                    <TextField GridPane.columnIndex="1" />
+                                    <TextField fx:id="FirstNameInput" GridPane.columnIndex="1" />
                                     <Label text="Last Name" GridPane.rowIndex="1" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id = "LastNameInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Date of Birth" GridPane.rowIndex="2" />
-                                    <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <DatePicker fx:id="DobInput" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Major" GridPane.rowIndex="3" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" selected="true" text="BAIT">
+                                          <RadioButton fx:id="MajorBAIT" mnemonicParsing="false" selected="true" text="BAIT">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="major" />
                                              </toggleGroup>
                                           </RadioButton>
-                                          <RadioButton mnemonicParsing="false" text="CS" toggleGroup="$major" />
-                                          <RadioButton mnemonicParsing="false" text="ECE" toggleGroup="$major" />
-                                          <RadioButton mnemonicParsing="false" text="ITI" toggleGroup="$major" />
-                                          <RadioButton mnemonicParsing="false" text="MATH" toggleGroup="$major" />
+                                          <RadioButton fx:id="MajorCS" mnemonicParsing="false" text="CS" toggleGroup="$major" />
+                                          <RadioButton fx:id="MajorECE" mnemonicParsing="false" text="ECE" toggleGroup="$major" />
+                                          <RadioButton fx:id="MajorITI" mnemonicParsing="false" text="ITI" toggleGroup="$major" />
+                                          <RadioButton fx:id="MajorMATH" mnemonicParsing="false" text="MATH" toggleGroup="$major" />
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
                                        </padding>
                                     </HBox>
                                     <Label text="Credits Completed" GridPane.rowIndex="4" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="CreditsInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label text="Status" GridPane.rowIndex="5" />
                                     <Label text="Scholarship" GridPane.rowIndex="7" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" selected="true" text="Resident">
+                                          <RadioButton fx:id="ResidentButton" mnemonicParsing="false" selected="true" text="Resident">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="resident" />
                                              </toggleGroup>
@@ -132,7 +132,7 @@
                                 <buttons>
                                     <HBox alignment="CENTER" prefHeight="40.0" prefWidth="700.0">
                                        <children>
-                                        <Button mnemonicParsing="false" text="Add" textAlignment="CENTER" />
+                                        <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" textAlignment="CENTER" />
                                           <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Remove" />
                                           <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
