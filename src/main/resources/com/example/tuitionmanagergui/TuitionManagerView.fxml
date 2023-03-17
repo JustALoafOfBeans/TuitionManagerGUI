@@ -54,7 +54,7 @@
                                     <Label text="Last Name" GridPane.rowIndex="1" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Date of Birth" GridPane.rowIndex="2" />
-                                    <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Major" GridPane.rowIndex="3" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <children>
@@ -133,13 +133,13 @@
                                     <HBox alignment="CENTER" prefHeight="40.0" prefWidth="700.0">
                                        <children>
                                         <Button mnemonicParsing="false" text="Add" textAlignment="CENTER" />
-                                          <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                                          <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Remove" />
-                                          <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                                          <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Change Major" />
-                                          <Region layoutX="207.0" layoutY="10.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                                          <Region layoutX="207.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Load From File" />
-                                          <Region prefHeight="200.0" prefWidth="10.0" />
+                                          <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Change Scholarship" textAlignment="CENTER" />
                                        </children>
                                        <padding>
@@ -177,7 +177,7 @@
                                     <Label text="Last Name" GridPane.rowIndex="1" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Date of Birth" GridPane.rowIndex="2" />
-                                    <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Credits" GridPane.rowIndex="3" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
@@ -259,7 +259,7 @@
       </TabPane>
    </center>
    <bottom>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>
