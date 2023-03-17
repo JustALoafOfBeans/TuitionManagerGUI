@@ -79,7 +79,7 @@
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <children>
-                                          <RadioButton fx:id="ResidentButton" mnemonicParsing="false" selected="true" text="Resident">
+                                          <RadioButton fx:id="ResidentButton" onAction="#onResidentTrue" mnemonicParsing="false" selected="true" text="Resident">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="resident" />
                                              </toggleGroup>
@@ -90,29 +90,29 @@
                                        <children>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <RadioButton mnemonicParsing="false" text="NonResident" toggleGroup="$resident" />
+                                                <RadioButton fx:id="NonResidentButton" onAction="#onNonresidentTrue" mnemonicParsing="false" text="NonResident" toggleGroup="$resident" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <RadioButton mnemonicParsing="false" text="Tristate">
+                                                      <RadioButton fx:id="TristateButton" onAction="#onTristateTrue" mnemonicParsing="false" text="Tristate">
                                                          <toggleGroup>
                                                             <ToggleGroup fx:id="country" />
                                                          </toggleGroup>
                                                       </RadioButton>
-                                                      <RadioButton mnemonicParsing="false" text="NY">
+                                                      <RadioButton fx:id="TriNYButton" mnemonicParsing="false" text="NY">
                                                          <toggleGroup>
                                                             <ToggleGroup fx:id="state" />
                                                          </toggleGroup>
                                                       </RadioButton>
-                                                      <RadioButton mnemonicParsing="false" text="CT" toggleGroup="$state" />
+                                                      <RadioButton fx:id="TriCTButton" mnemonicParsing="false" text="CT" toggleGroup="$state" />
                                                    </children>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <RadioButton mnemonicParsing="false" text="International" toggleGroup="$country" />
+                                                      <RadioButton fx:id="IntlButton" onAction="#onIntlTrue" mnemonicParsing="false" text="International" toggleGroup="$country" />
                                                       <CheckBox mnemonicParsing="false" text="Study Abroad" />
                                                    </children>
                                                 </HBox>
