@@ -6,12 +6,35 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ Controller class for event triggers and roster and enroll objects which holds
+ student objects. This class is launched by running TuitionManagerMain.java
+ and first initiates a new roster object and session. The roster and
+ enrollment list can be manipulated during the session but all actions are
+ cleared after closing the window.
+ @author Victoria Chen, Bridget Zhang
+ */
 public class TuitionManagerController {
     @FXML
+    /**
+     * Init text fields for Roster object
+     */
     public TextField FirstNameInput, LastNameInput, CreditsInput, ScholarshipInput;
+    /**
+     * Init date picker object for Roster
+     */
     public DatePicker DobInput;
+    /**
+     * Init radio buttons for Roster majors
+     */
     public RadioButton MajorBAIT, MajorCS, MajorEE, MajorITI, MajorMATH;
+    /**
+     * Init radio buttons for Roster student statuses
+     */
     public RadioButton ResidentButton, NonResidentButton, TristateButton, TriNYButton, TriCTButton, IntlButton;
+    /**
+     * Init checkbox for Roster student Study Abroad status
+     */
     public CheckBox StudyAbroad;
     /**
      * Init text area for output at the bottom of the Tuition Manager window.
@@ -19,11 +42,26 @@ public class TuitionManagerController {
      * text with the desired String.
      */
     public TextArea output;
+    /**
+     * Init roster object
+     */
     Roster studentRoster = new Roster();
+    /**
+     * Init enrollment list object
+     */
     Enrollment enrolledStudents = new Enrollment();
+    /**
+     * Static variable for 1
+     */
     private static int ONE = 1;
+    /**
+     * Static variable for 0
+     */
     private static int INIT = 0;
 
+    /**
+     * Initialization status for the GUI
+     */
     @FXML
     public void initialize() {
         output.setText("Tuition manager running...");
@@ -34,8 +72,11 @@ public class TuitionManagerController {
         StudyAbroad.setDisable(true);
     }
 
+    /**
+     * When Resident is selected, disables related Non-Resident button options
+     */
     @FXML
-    protected void onResidentTrue() { // Disables related Non-Resident button options
+    protected void onResidentTrue() {
         TristateButton.setDisable(true);
         TriNYButton.setDisable(true);
         TriCTButton.setDisable(true);
@@ -48,21 +89,30 @@ public class TuitionManagerController {
         StudyAbroad.setSelected(false);
     }
 
+    /**
+     * When Nonresident is selected, enables Non-Resident button options
+     */
     @FXML
-    protected void onNonresidentTrue() { // Enables Non-REsident button options
+    protected void onNonresidentTrue() {
         TristateButton.setDisable(false);
         IntlButton.setDisable(false);
     }
 
+    /**
+     * When Tristate is selected, enables Tristate button options
+     */
     @FXML
-    protected void onTristateTrue() { // Enables Tristate button options
+    protected void onTristateTrue() {
         TriNYButton.setDisable(false);
         TriCTButton.setDisable(false);
         StudyAbroad.setSelected(false);
     }
 
+    /**
+     * When International is selected, disables Tristate Non-res button options
+     */
     @FXML
-    protected void onIntlTrue() { // Disables Tristate Non-res button options
+    protected void onIntlTrue() {
         TriNYButton.setDisable(true);
         TriNYButton.setSelected(false);
         TriCTButton.setDisable(true);
@@ -70,48 +120,80 @@ public class TuitionManagerController {
         StudyAbroad.setDisable(false);
     }
 
+    /**
+     * On click "Print by Profile" button. Outputs roster to GUI sorted by
+     * student profiles.
+     */
     @FXML
     protected void printByProfile() {
         String rosterProfilePrint = studentRoster.print();
         output.setText(rosterProfilePrint);
     }
 
+    /**
+     * On click "Print by School" button. Outputs roster to GUI sorted by
+     * students belonging to a specified school, sorted by profiles.
+     */
     @FXML
     protected void printBySchool() {
         String rosterSchoolPrint = studentRoster.printBySchoolMajor();
         output.setText(rosterSchoolPrint);
     }
 
+    /**
+     * On click "Print by Standing" button. Outputs roster to GUI sorted by
+     * student standing (alphabetical) and profile.
+     */
     @FXML
     protected void printByStanding() {
         String rosterStandingPrint = studentRoster.printByStanding();
         output.setText(rosterStandingPrint);
     }
 
+    /**
+     * On click RBS print button. Outputs roster to GUI of students
+     * belonging to Rutgers Business School, sorted by profiles.
+     */
     @FXML
     protected void printSchoolRBS() {
         String printRBS = studentRoster.print("RBS");
         output.setText(printRBS);
     }
 
+    /**
+     * On click SAS print button. Outputs roster to GUI of students
+     * belonging to School of Arts and Sciences, sorted by profiles.
+     */
     @FXML
     protected void printSchoolSAS() {
         String printSAS = studentRoster.print("SAS");
         output.setText(printSAS);
     }
 
+    /**
+     * On click SC&I print button. Outputs roster to GUI of students
+     * belonging to School of Communication & Information, sorted by profiles.
+     */
     @FXML
     protected void printSchoolSCI() {
         String printSCI = studentRoster.print("SC&I");
         output.setText(printSCI);
     }
 
+    /**
+     * On click SOE print button. Outputs roster to GUI of students
+     * belonging to School of Engineering, sorted by profiles.
+     */
     @FXML
     protected void printSchoolSOE() {
         String printSOE = studentRoster.print("SOE");
         output.setText(printSOE);
     }
 
+    /**
+     * On click "Load from File" button. Reads input from studentList.txt and
+     * adds the students to the roster.
+     */
     @FXML
     protected void onLoadFileButtonClick() {
         try {
@@ -135,6 +217,13 @@ public class TuitionManagerController {
         }
     }
 
+    /**
+     * Private helper method for onLoadFileButtonClick(). Takes in one line
+     * from the file with the details for one student and adds that student
+     * to the roster by filling out the GUI and using onAddButtonClick().
+     * @param opCode String containing the opCode for what type of student to add
+     * @param parameters String array of the student's details
+     */
     private void processFile(String opCode, String[] parameters) {
         switch (opCode) {
             case "R":
@@ -163,6 +252,11 @@ public class TuitionManagerController {
         }
     }
 
+    /**
+     * Helper method which sets the corresponding fields in the GUI to match
+     * the information in the String array input.
+     * @param parameters String array of the student's details
+     */
     private void setParams(String[] parameters) {
         FirstNameInput.setText(parameters[0]);
         LastNameInput.setText(parameters[1]);
@@ -183,6 +277,11 @@ public class TuitionManagerController {
         CreditsInput.setText(parameters[4]);
     }
 
+    /**
+     * On click "Change Major" button. Changes the major of the student if
+     * they are in the roster. Throw error message if they are not in the
+     * roster.
+     */
     @FXML
     protected void onChangeMajorButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
@@ -204,7 +303,10 @@ public class TuitionManagerController {
         }
     }
 
-
+    /**
+     * On click "Remove" button. Removes the student from the roster. If the
+     * student is not in the roster, throw error message.
+     */
     @FXML
     protected void onRemoveButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
@@ -228,6 +330,11 @@ public class TuitionManagerController {
         clearRosterFields();
     }
 
+    /**
+     * On click "Add" button. Adds the student to the roster if the student
+     * is not already in the roster. Throw error message if the student is
+     * already in the roster.
+     */
     @FXML
     protected void onAddButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty() || DobInput == null || CreditsInput.getText().isEmpty()) {
@@ -256,6 +363,12 @@ public class TuitionManagerController {
         clearRosterFields();
     }
 
+    /**
+     * Helper method for onAddButtonClick(). Verifies if the given credit
+     * value is a valid value.
+     * @param credits String value of credits.
+     * @return True if credits is a positive integer. False otherwise.
+     */
     private boolean validCredits(String credits) {
         char[] digits = credits.toCharArray();
         for (int i = 0; i < digits.length; i++) {
@@ -273,6 +386,12 @@ public class TuitionManagerController {
         return true;
     }
 
+    /**
+     * Helper method which initializes a sub-Class of Student object based on
+     * what status buttons are selected using the student's details.
+     * @param stuDetails String array of the student's details.
+     * @return Resident, Nonresident, Tristate or International object.
+     */
     private Student createStudent(String[] stuDetails) {
         String toAdd = String.join(" ", stuDetails);
         Student student = null;
@@ -297,6 +416,11 @@ public class TuitionManagerController {
         return student;
     }
 
+    /**
+     * Helper method creates an array of a student's details from the
+     * information in the GUI.
+     * @return String array of a student's details.
+     */
     private String[] createStudentArr() {
         String[] studentDetails = {FirstNameInput.getText(),
                 LastNameInput.getText(),DobInput.getValue().toString(),"",CreditsInput.getText()};
@@ -314,6 +438,10 @@ public class TuitionManagerController {
         return studentDetails;
     }
 
+    /**
+     * Helper method clears all fields on the Roster page. Used after
+     * successfully completing an event.
+     */
     private void clearRosterFields() {
         FirstNameInput.clear();
         LastNameInput.clear();
