@@ -73,7 +73,8 @@ public class TuitionManagerController {
 
     @FXML
     protected void printByProfile() {
-        studentRoster.print(); //todo make print to output instead of console
+        String rosterProfilePrint = studentRoster.print(); //todo make print to output instead of console
+        output.setText(rosterProfilePrint);
     }
 
     @FXML

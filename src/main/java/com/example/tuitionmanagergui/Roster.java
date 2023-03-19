@@ -137,20 +137,21 @@ public class Roster {
     /**
      Prints roster sorted by student profiles
      */
-    public void print() {
+    public String print() {
+        String printStr = "";
         // Sort by profile
         sortProfile();
         // Print all elements of sorted roster
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            printStr += "Student roster is empty!\n";
         } else {
-            System.out.println("* Student roster sorted by last name, first " +
-                    "name, DOB **");
+            printStr += "* Student roster sorted by last name, first name, DOB **\n";
             for (int ind = 0; ind < size; ind++) {
-                System.out.println(roster[ind].toString());
+                printStr += (roster[ind].toString() + "\n");
             }
-            System.out.println("* end of roster **");
+            printStr += "* end of roster **\n";
         }
+        return printStr;
     }
 
     /**
