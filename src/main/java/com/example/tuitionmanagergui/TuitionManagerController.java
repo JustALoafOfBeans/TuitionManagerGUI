@@ -26,7 +26,6 @@ public class TuitionManagerController {
 
     @FXML
     public void initialize() {
-        System.out.println("Initial things"); // todo remove lol
         output.setText("Tuition manager running...");
         TristateButton.setDisable(true);
         TriNYButton.setDisable(true);
@@ -87,6 +86,30 @@ public class TuitionManagerController {
     protected void printByStanding() {
         String rosterStandingPrint = studentRoster.printByStanding();
         output.setText(rosterStandingPrint);
+    }
+
+    @FXML
+    protected void printSchoolRBS() {
+        String printRBS = studentRoster.print("RBS");
+        output.setText(printRBS);
+    }
+
+    @FXML
+    protected void printSchoolSAS() {
+        String printSAS = studentRoster.print("SAS");
+        output.setText(printSAS);
+    }
+
+    @FXML
+    protected void printSchoolSCI() {
+        String printSCI = studentRoster.print("SC&I");
+        output.setText(printSCI);
+    }
+
+    @FXML
+    protected void printSchoolSOE() {
+        String printSOE = studentRoster.print("SOE");
+        output.setText(printSOE);
     }
 
     @FXML

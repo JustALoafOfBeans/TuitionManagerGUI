@@ -228,10 +228,10 @@
                                  <content>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Rutgers Business School (RBS)" />
-                                          <Button mnemonicParsing="false" text="School of Arts and Sciences (SAS)" />
-                                          <Button mnemonicParsing="false" text="School of Communication &amp; Information (SC&amp;I)" />
-                                          <Button mnemonicParsing="false" text="School of Engineering (SOE)" />
+                                          <Button mnemonicParsing="false" onAction="#printSchoolRBS" text="Rutgers Business School (RBS)" />
+                                          <Button mnemonicParsing="false" onAction="#printSchoolSAS" text="School of Arts and Sciences (SAS)" />
+                                          <Button mnemonicParsing="false" onAction="#printSchoolSCI" text="School of Communication &amp; Information (SC&amp;I)" />
+                                          <Button mnemonicParsing="false" onAction="#printSchoolSOE" text="School of Engineering (SOE)" />
                                        </children>
                                     </VBox>
                                  </content>

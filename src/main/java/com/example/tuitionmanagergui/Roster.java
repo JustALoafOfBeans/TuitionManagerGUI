@@ -147,7 +147,7 @@ public class Roster {
         } else {
             printStr += "* Student roster sorted by last name, first name, DOB **\n";
             for (int ind = 0; ind < size; ind++) {
-                printStr += (roster[ind].toString() + "\n");
+                printStr += roster[ind].toString() + "\n";
             }
             printStr += "* end of roster **\n";
         }
@@ -158,7 +158,8 @@ public class Roster {
      Print students belonging to a specified school, sorted by profiles
      * @param targetSchool school from which to print students
      */
-    public void print(String targetSchool) {
+    public String print(String targetSchool) {
+        String printStr = "";
         // Check if targetSchool exists
         boolean schoolFound = false;
         for (Major maj : Major.values()) {
@@ -168,24 +169,25 @@ public class Roster {
             }
         }
         if (!schoolFound) {
-            System.out.println("School doesn't exist: " + targetSchool);
-            return;
+            printStr = "School doesn't exist: " + targetSchool + "\n";
+            return printStr;
         }
         // Sort by profile
         sortProfile();
         // Print if student found in school
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            printStr = "Student roster is empty!";
         } else {
-            System.out.println("* Students in " + targetSchool + " *");
+            printStr = "* Students in " + targetSchool + " *\n";
             for (int ind = 0; ind < size; ind++) {
                 if (roster[ind].getMajor().school.compareTo(targetSchool) == 0) {
                     // Print if Student's school matches target
-                    System.out.println(roster[ind].toString());
+                    printStr += roster[ind].toString() + "\n";
                 }
             }
-            System.out.println("* end of roster **");
+            printStr += "* end of roster **";
         }
+        return printStr;
     }
 
     /**
