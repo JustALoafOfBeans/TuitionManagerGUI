@@ -77,6 +77,16 @@ public class TuitionManagerController {
     }
 
     @FXML
+    protected void printBySchool() {
+        studentRoster.printBySchoolMajor(); //todo make print to output instead of console
+    }
+
+    @FXML
+    protected void printByStanding() {
+        studentRoster.printByStanding(); //todo make print to output instead of console
+    }
+
+    @FXML
     protected void onLoadFileButtonClick() {
         try {
             File studentList = new File("./src/main/java/com/example/tuitionmanagergui/studentList.txt");;

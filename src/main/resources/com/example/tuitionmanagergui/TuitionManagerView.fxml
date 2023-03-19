@@ -218,8 +218,8 @@
                                     <VBox spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#printByProfile" text="Print by Profile" />
-                                          <Button mnemonicParsing="false" text="Print by School" />
-                                          <Button mnemonicParsing="false" text="Print by Standing" />
+                                          <Button mnemonicParsing="false" onAction="#printBySchool" text="Print by School" />
+                                          <Button mnemonicParsing="false" onAction="#printByStanding" text="Print by Standing" />
                                        </children>
                                     </VBox>
                                  </content>
