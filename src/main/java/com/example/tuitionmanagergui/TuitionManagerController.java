@@ -74,6 +74,28 @@ public class TuitionManagerController {
     }
 
     @FXML
+    protected void onChangeMajorButtonClick() {
+        if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
+                || DobInput == null ) {
+            output.setText("Missing data to add student. Please check " +
+                    "first/last name, and/or date of birth.");
+            return;
+        }
+        String[] studentDetails = createStudentArr();
+        String student =
+                studentDetails[0] + " " + studentDetails[1] + " " + studentDetails[2];
+        Profile toChange = new Profile(student);
+        Resident stuObj = new Resident(toChange);
+        if (studentRoster.contains(stuObj)) {
+            studentRoster.changeMajor(toChange, studentDetails[3]);
+            output.setText(student + " major changed to " + studentDetails[3]);
+        } else {
+            output.setText(student + " is not in the roster.");
+        }
+    }
+
+
+    @FXML
     protected void onRemoveButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
                 || DobInput == null || CreditsInput.getText().isEmpty()) {
@@ -169,15 +191,15 @@ public class TuitionManagerController {
         String[] studentDetails = {FirstNameInput.getText(),
                 LastNameInput.getText(),DobInput.getValue().toString(),"",CreditsInput.getText()};
         if (MajorBAIT.isSelected()) {
-            studentDetails[3] = "BAIT ";
+            studentDetails[3] = "BAIT";
         } else if (MajorCS.isSelected()) {
-            studentDetails[3] = "CS ";
+            studentDetails[3] = "CS";
         } else if (MajorEE.isSelected()) {
-            studentDetails[3] = "EE ";
+            studentDetails[3] = "EE";
         } else if (MajorITI.isSelected()) {
-            studentDetails[3] = "ITI ";
+            studentDetails[3] = "ITI";
         } else if (MajorMATH.isSelected()) {
-            studentDetails[3] = "MATH ";
+            studentDetails[3] = "MATH";
         }
         return studentDetails;
     }
@@ -189,6 +211,7 @@ public class TuitionManagerController {
         MajorBAIT.setSelected(true);
         CreditsInput.clear();
         ResidentButton.setSelected(true);
+        onResidentTrue();
         ScholarshipInput.clear();
     }
 

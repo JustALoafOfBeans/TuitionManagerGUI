@@ -136,7 +136,7 @@
                                           <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" onAction="#onRemoveButtonClick" text="Remove" />
                                           <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" text="Change Major" />
+                                          <Button mnemonicParsing="false" onAction="#onChangeMajorButtonClick" text="Change Major" />
                                           <Region layoutX="207.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Load From File" />
                                           <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
