@@ -39,12 +39,14 @@ public class TriState extends NonResident {
      */
     public double tuitionDue(int creditsEnrolled) { // From Abstract Student
         int PARTTTIME = 12;
+        int NYDISC = 4000;
+        int CTDISC = 5000;
         double tristateSum = super.tuitionDue(creditsEnrolled);
         if (creditsEnrolled >= PARTTTIME) {
             if (state.toUpperCase().compareTo("NY") == 0) { // NY tristate discount
-                tristateSum -= 4000;
+                tristateSum -= NYDISC;
             } else if (state.toUpperCase().compareTo("CT") == 0) { // CT tristate discount // todo check abbrev
-                tristateSum -= 5000;
+                tristateSum -= CTDISC;
             }
         }
         return tristateSum;
