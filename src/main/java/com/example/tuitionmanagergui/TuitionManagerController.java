@@ -2,6 +2,9 @@ package com.example.tuitionmanagergui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import java.io.File;
+import java.time.LocalDate;
+import java.util.Scanner;
 
 public class TuitionManagerController {
     @FXML
@@ -71,6 +74,77 @@ public class TuitionManagerController {
     @FXML
     protected void printByProfile() {
         studentRoster.print(); //todo make print to output instead of console
+    }
+
+    @FXML
+    protected void onLoadFileButtonClick() {
+        try {
+            File studentList = new File("./src/main/java/com/example/tuitionmanagergui/studentList.txt");;
+            Scanner intake = new Scanner(studentList);
+            String opCode = "init";
+            while(intake.hasNextLine()) {
+                String command = intake.nextLine();
+                String[] parameters = command.split(",");
+                if (parameters.length > INIT && parameters[0] != "") {
+                    opCode = parameters[0];
+                    String[]noOp = {parameters[1], parameters[2], parameters[3], parameters[4], parameters[5]};
+                    clearRosterFields();
+                    setParams(noOp);
+                    processFile(opCode, parameters);
+                }
+            }
+            output.setText("Students loaded to the roster.");
+        } catch (Exception e) {
+            output.setText(e.getClass().toString());
+        }
+    }
+
+    private void processFile(String opCode, String[] parameters) {
+        switch (opCode) {
+            case "R":
+                ResidentButton.setSelected(true);
+                onAddButtonClick();
+                break;
+            case "I":
+                if (parameters.length > 5 && parameters[6].equals("true")) {
+                    StudyAbroad.setSelected(true);
+                }
+                IntlButton.setSelected(true);
+                onAddButtonClick();
+                break;
+            case "T":
+                if (parameters[6].equals("CT")) {
+                    TriCTButton.setSelected(true);
+                } else if (parameters[6].equals("NY")) {
+                    TriNYButton.setSelected(true);
+                }
+                onAddButtonClick();
+                break;
+            case "N":
+                NonResidentButton.setSelected(true);
+                onAddButtonClick();
+                break;
+        }
+    }
+
+    private void setParams(String[] parameters) {
+        FirstNameInput.setText(parameters[0]);
+        LastNameInput.setText(parameters[1]);
+        String[] date = parameters[2].split("/");
+        DobInput.setValue(LocalDate.of(Integer.parseInt(date[2]), Integer.parseInt(date[0]),
+                Integer.parseInt(date[1])));
+        if (parameters[3].equals("BAIT")) {
+            MajorBAIT.setSelected(true);
+        } else if (parameters[3].equals("CS")) {
+            MajorCS.setSelected(true);
+        } else if (parameters[3].equals("EE")) {
+            MajorEE.setSelected(true);
+        } else if (parameters[3].equals("ITI")) {
+            MajorITI.setSelected(true);
+        } else if (parameters[3].equals("MATH")) {
+            MajorMATH.setSelected(true);
+        }
+        CreditsInput.setText(parameters[4]);
     }
 
     @FXML
