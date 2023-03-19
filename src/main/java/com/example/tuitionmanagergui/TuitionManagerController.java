@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 
 public class TuitionManagerController {
     @FXML
-    public TextField FirstNameInput, LastNameInput, CreditsInput;
+    public TextField FirstNameInput, LastNameInput, CreditsInput, ScholarshipInput;
     public DatePicker DobInput;
     public RadioButton MajorBAIT, MajorCS, MajorEE, MajorITI, MajorMATH;
     public RadioButton ResidentButton, NonResidentButton, TristateButton, TriNYButton, TriCTButton, IntlButton;
@@ -74,9 +74,31 @@ public class TuitionManagerController {
     }
 
     @FXML
-    protected void onAddButtonClick() {
+    protected void onRemoveButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
                 || DobInput == null || CreditsInput.getText().isEmpty()) {
+            output.setText("Missing data to add student. Please check " +
+                    "first/last name, date of birth and/or completed credits.");
+            return;
+        }
+        String student =
+                FirstNameInput.getText() + " " + LastNameInput.getText() + " " +
+                DobInput.getValue().toString() + " FAKE 50";
+        Student toRemove = new Resident(student);
+        if (studentRoster.contains(toRemove)) {
+            studentRoster.remove(toRemove);
+            output.setText(FirstNameInput.getText() + " " + LastNameInput.getText() + " " +
+                    DobInput.getValue().toString() + " removed from the roster.");
+        } else {
+            output.setText(FirstNameInput.getText() + " " + LastNameInput.getText() + " " +
+                    DobInput.getValue().toString() + " is not in the roster.");
+        }
+        clearRosterFields();
+    }
+
+    @FXML
+    protected void onAddButtonClick() {
+        if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty() || DobInput == null || CreditsInput.getText().isEmpty()) {
             output.setText("Missing data to add student. Please check " +
                     "first/last name, date of birth and/or completed credits.");
             return;
@@ -113,6 +135,7 @@ public class TuitionManagerController {
             studentRoster.add(student);
             output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " added to the roster.");
         }
+        clearRosterFields();
     }
 
     private String[] createStudent() {
@@ -130,6 +153,16 @@ public class TuitionManagerController {
             studentDetails[3] = "MATH ";
         }
         return studentDetails;
+    }
+
+    private void clearRosterFields() {
+        FirstNameInput.clear();
+        LastNameInput.clear();
+        DobInput.setValue(null);
+        MajorBAIT.setSelected(true);
+        CreditsInput.clear();
+        ResidentButton.setSelected(true);
+        ScholarshipInput.clear();
     }
 
 }

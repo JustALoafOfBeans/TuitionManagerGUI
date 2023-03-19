@@ -76,7 +76,7 @@
                                     <TextField fx:id="CreditsInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label text="Status" GridPane.rowIndex="5" />
                                     <Label text="Scholarship" GridPane.rowIndex="7" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="ScholarshipInput" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <children>
                                           <RadioButton fx:id="ResidentButton" mnemonicParsing="false" onAction="#onResidentTrue" selected="true" text="Resident">
@@ -134,7 +134,7 @@
                                        <children>
                                         <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" textAlignment="CENTER" />
                                           <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" text="Remove" />
+                                          <Button mnemonicParsing="false" onAction="#onRemoveButtonClick" text="Remove" />
                                           <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" text="Change Major" />
                                           <Region layoutX="207.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
