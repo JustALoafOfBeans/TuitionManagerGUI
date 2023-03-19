@@ -35,13 +35,13 @@ public class Date implements Comparable<Date> {
 
     /**
      Constructor for Date object using values from input String.
-     @param date String describing input date in mm/dd/yyyy format.
+     @param date String describing input date in yyyy-mm-dd format.
     */
     public Date(String date) {
-        int MONTHIND = 0;
-        int DAYIND = 1;
-        int YEARIND = 2;
-        String[] dateBreakdwn = date.split("/");
+        int YEARIND = 0;
+        int MONTHIND = 1;
+        int DAYIND = 2;
+        String[] dateBreakdwn = date.split("-");
         this.month = Integer.parseInt(dateBreakdwn[MONTHIND]);
         this.day = Integer.parseInt(dateBreakdwn[DAYIND]);
         this.year = Integer.parseInt(dateBreakdwn[YEARIND]);
