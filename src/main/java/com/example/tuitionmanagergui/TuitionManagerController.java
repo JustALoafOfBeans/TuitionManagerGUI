@@ -38,6 +38,12 @@ public class TuitionManagerController {
         TriNYButton.setDisable(true);
         TriCTButton.setDisable(true);
         IntlButton.setDisable(true);
+        StudyAbroad.setDisable(true);
+        TristateButton.setSelected(false);
+        IntlButton.setSelected(false);
+        TriNYButton.setSelected(false);
+        TriCTButton.setSelected(false);
+        StudyAbroad.setSelected(false);
     }
 
     @FXML
@@ -50,16 +56,27 @@ public class TuitionManagerController {
     protected void onTristateTrue() { // Enables Tristate button options
         TriNYButton.setDisable(false);
         TriCTButton.setDisable(false);
+        StudyAbroad.setSelected(false);
     }
 
     @FXML
     protected void onIntlTrue() { // Disables Tristate Non-res button options
         TriNYButton.setDisable(true);
+        TriNYButton.setSelected(false);
         TriCTButton.setDisable(true);
+        TriCTButton.setSelected(false);
+        StudyAbroad.setDisable(false);
     }
 
     @FXML
     protected void onAddButtonClick() {
+        if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
+                || DobInput == null || CreditsInput.getText().isEmpty()) {
+            output.setText("Missing data to add student. Please check " +
+                    "first/last name, date of birth and/or completed " +
+                    "credits.");
+            return;
+        }
         System.out.println(FirstNameInput.getText());
         System.out.println(LastNameInput.getText());
         String dobString = DobInput.getValue().toString();
@@ -77,4 +94,5 @@ public class TuitionManagerController {
         }
         System.out.println("Credits completed: " + CreditsInput.getText());
     }
+
 }
