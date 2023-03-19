@@ -103,12 +103,45 @@ public class TuitionManagerController {
                     "first/last name, date of birth and/or completed credits.");
             return;
         }
-        String[] stuDetails = createStudent();
+        String[] stuDetails = createStudentArr();
         Date dob = new Date(DobInput.getValue().toString());
         if (!dob.checkIfSixteen()) { //check age
             output.setText("DOB invalid: " + dob + " younger than 16 years old.");
             return;
         }
+        if (!validCredits(stuDetails[4])) {
+            return;
+        }
+        Student student = createStudent(stuDetails);
+        if (student == null) {
+            return;
+        } else if (studentRoster.contains(student)) {
+            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " is already in the roster.");
+        } else {
+            studentRoster.add(student);
+            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " added to the roster.");
+        }
+        clearRosterFields();
+    }
+
+    private boolean validCredits(String credits) {
+        char[] digits = credits.toCharArray();
+        for (int i = 0; i < digits.length; i++) {
+            if (i == INIT && digits[0] == '-') {
+                continue; // exception made for negative values
+            } else if (!Character.isDigit(digits[i])) {
+                output.setText("Credits completed invalid: not an integer!");
+                return false;
+            }
+        }
+        if(Integer.parseInt(credits) < INIT) {
+            output.setText("Credits completed invalid: cannot be negative!");
+            return false;
+        }
+        return true;
+    }
+
+    private Student createStudent(String[] stuDetails) {
         String toAdd = String.join(" ", stuDetails);
         Student student = null;
         if (TriCTButton.isSelected()) {
@@ -117,7 +150,7 @@ public class TuitionManagerController {
             student = new TriState(toAdd,"NY");
         } else if (TristateButton.isSelected()) {
             output.setText("Please select a state.");
-            return;
+            return null;
         } else if (IntlButton.isSelected()) {
             Boolean studyAbroad = false;
             if (StudyAbroad.isSelected()) {
@@ -129,16 +162,10 @@ public class TuitionManagerController {
         } else {
             student = new Resident(toAdd);
         }
-        if (studentRoster.contains(student)) {
-            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " is already in the roster.");
-        } else {
-            studentRoster.add(student);
-            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " added to the roster.");
-        }
-        clearRosterFields();
+        return student;
     }
 
-    private String[] createStudent() {
+    private String[] createStudentArr() {
         String[] studentDetails = {FirstNameInput.getText(),
                 LastNameInput.getText(),DobInput.getValue().toString(),"",CreditsInput.getText()};
         if (MajorBAIT.isSelected()) {
