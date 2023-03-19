@@ -6,25 +6,30 @@ import javafx.scene.control.*;
 public class TuitionManagerController {
     @FXML
     public TextField FirstNameInput, LastNameInput, CreditsInput;
-    @FXML
     public DatePicker DobInput;
     public RadioButton MajorBAIT, MajorCS, MajorECE, MajorITI, MajorMATH;
     public RadioButton ResidentButton, NonResidentButton, TristateButton, TriNYButton, TriCTButton, IntlButton;
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    public CheckBox StudyAbroad;
+    /**
+     * Init text area for output at the bottom of the Tuition Manager window.
+     * Add new text with "setText()" command. This will replace all current
+     * text with the desired String.
+     */
+    public TextArea output;
+    Roster studentRoster = new Roster();
+    Enrollment enrolledStudents = new Enrollment();
+    private static int ONE = 1;
+    private static int INIT = 0;
 
     @FXML
     public void initialize() {
         System.out.println("Initial things"); // todo remove lol
+        output.setText("Tuition manager running...");
         TristateButton.setDisable(true);
         TriNYButton.setDisable(true);
         TriCTButton.setDisable(true);
         IntlButton.setDisable(true);
+        StudyAbroad.setDisable(true);
     }
 
     @FXML

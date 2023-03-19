@@ -8,9 +8,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -52,7 +52,7 @@
                                     <Label text="First Name" />
                                     <TextField fx:id="FirstNameInput" GridPane.columnIndex="1" />
                                     <Label text="Last Name" GridPane.rowIndex="1" />
-                                    <TextField fx:id = "LastNameInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="LastNameInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Date of Birth" GridPane.rowIndex="2" />
                                     <DatePicker fx:id="DobInput" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <Label text="Major" GridPane.rowIndex="3" />
@@ -79,7 +79,7 @@
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                        <children>
-                                          <RadioButton fx:id="ResidentButton" onAction="#onResidentTrue" mnemonicParsing="false" selected="true" text="Resident">
+                                          <RadioButton fx:id="ResidentButton" mnemonicParsing="false" onAction="#onResidentTrue" selected="true" text="Resident">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="resident" />
                                              </toggleGroup>
@@ -90,14 +90,14 @@
                                        <children>
                                           <VBox prefHeight="200.0" prefWidth="100.0">
                                              <children>
-                                                <RadioButton fx:id="NonResidentButton" onAction="#onNonresidentTrue" mnemonicParsing="false" text="NonResident" toggleGroup="$resident" />
+                                                <RadioButton fx:id="NonResidentButton" mnemonicParsing="false" onAction="#onNonresidentTrue" text="NonResident" toggleGroup="$resident" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <RadioButton fx:id="TristateButton" onAction="#onTristateTrue" mnemonicParsing="false" text="Tristate">
+                                                      <RadioButton fx:id="TristateButton" mnemonicParsing="false" onAction="#onTristateTrue" text="Tristate">
                                                          <toggleGroup>
                                                             <ToggleGroup fx:id="country" />
                                                          </toggleGroup>
@@ -112,8 +112,8 @@
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <RadioButton fx:id="IntlButton" onAction="#onIntlTrue" mnemonicParsing="false" text="International" toggleGroup="$country" />
-                                                      <CheckBox mnemonicParsing="false" text="Study Abroad" />
+                                                      <RadioButton fx:id="IntlButton" mnemonicParsing="false" onAction="#onIntlTrue" text="International" toggleGroup="$country" />
+                                                      <CheckBox fx:id="StudyAbroad" mnemonicParsing="false" text="Study Abroad" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -259,10 +259,6 @@
       </TabPane>
    </center>
    <bottom>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
+      <TextArea fx:id="output" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
