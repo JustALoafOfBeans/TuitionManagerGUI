@@ -106,7 +106,7 @@ public class TuitionManagerController {
         String[] stuDetails = createStudent();
         Date dob = new Date(DobInput.getValue().toString());
         if (!dob.checkIfSixteen()) { //check age
-            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " is not 16 years or older.");
+            output.setText("DOB invalid: " + dob + " younger than 16 years old.");
             return;
         }
         String toAdd = String.join(" ", stuDetails);
