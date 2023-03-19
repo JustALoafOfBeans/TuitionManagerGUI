@@ -143,7 +143,7 @@ public class Roster {
         sortProfile();
         // Print all elements of sorted roster
         if (size == 0) {
-            printStr += "Student roster is empty!\n";
+            printStr = "Student roster is empty!\n";
         } else {
             printStr += "* Student roster sorted by last name, first name, DOB **\n";
             for (int ind = 0; ind < size; ind++) {
@@ -191,37 +191,41 @@ public class Roster {
     /**
      Prints roster sorted by student majors (alphabetical) and profile
      */
-    public void printBySchoolMajor() {
+    public String printBySchoolMajor() {
+        String printStr = "";
         // Sort by standing
         sortSchoolMajor();
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            printStr = "Student roster is empty!\n";
         } else {
-            System.out.println("* Student roster sorted by school, major **");
+            printStr = "* Student roster sorted by school, major **\n";
             // Print all elements of sorted roster
             for (int ind = 0; ind < size; ind++) {
-                System.out.println(roster[ind].toString());
+                printStr += (roster[ind].toString() + "\n");
             }
-            System.out.println("* end of roster **");
+            printStr += "* end of roster **\n";
         }
+        return printStr;
     }
 
     /**
      Prints roster sorted by student standing (alphabetical) and profile
      */
-    public void printByStanding() {
+    public String printByStanding() {
+        String printStr = "";
         // Sort by school and major
         sortStanding();
         if (size == 0) {
-            System.out.println("Student roster is empty!");
+            printStr = "Student roster is empty!\n";
         } else {
-            System.out.println("* Student roster sorted by standing **");
+            printStr = "* Student roster sorted by standing **\n";
             // Print all elements of sorted roster
             for (int ind = 0; ind < size; ind++) {
-                System.out.println(roster[ind].toString());
+                printStr += (roster[ind].toString() + "\n");
             }
-            System.out.println("* end of roster **");
+            printStr += "* end of roster **\n";
         }
+        return printStr;
     }
 
     /**

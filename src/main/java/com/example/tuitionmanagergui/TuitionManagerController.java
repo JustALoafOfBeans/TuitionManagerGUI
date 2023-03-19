@@ -73,18 +73,20 @@ public class TuitionManagerController {
 
     @FXML
     protected void printByProfile() {
-        String rosterProfilePrint = studentRoster.print(); //todo make print to output instead of console
+        String rosterProfilePrint = studentRoster.print();
         output.setText(rosterProfilePrint);
     }
 
     @FXML
     protected void printBySchool() {
-        studentRoster.printBySchoolMajor(); //todo make print to output instead of console
+        String rosterSchoolPrint = studentRoster.printBySchoolMajor();
+        output.setText(rosterSchoolPrint);
     }
 
     @FXML
     protected void printByStanding() {
-        studentRoster.printByStanding(); //todo make print to output instead of console
+        String rosterStandingPrint = studentRoster.printByStanding();
+        output.setText(rosterStandingPrint);
     }
 
     @FXML
