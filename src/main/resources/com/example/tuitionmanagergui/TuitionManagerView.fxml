@@ -64,7 +64,7 @@
                                              </toggleGroup>
                                           </RadioButton>
                                           <RadioButton fx:id="MajorCS" mnemonicParsing="false" text="CS" toggleGroup="$major" />
-                                          <RadioButton fx:id="MajorECE" mnemonicParsing="false" text="ECE" toggleGroup="$major" />
+                                          <RadioButton fx:id="MajorEE" mnemonicParsing="false" text="EE" toggleGroup="$major" />
                                           <RadioButton fx:id="MajorITI" mnemonicParsing="false" text="ITI" toggleGroup="$major" />
                                           <RadioButton fx:id="MajorMATH" mnemonicParsing="false" text="MATH" toggleGroup="$major" />
                                        </children>
@@ -217,7 +217,7 @@
                                  <content>
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Print by Profile" />
+                                          <Button mnemonicParsing="false" onAction="#printByProfile" text="Print by Profile" />
                                           <Button mnemonicParsing="false" text="Print by School" />
                                           <Button mnemonicParsing="false" text="Print by Standing" />
                                        </children>

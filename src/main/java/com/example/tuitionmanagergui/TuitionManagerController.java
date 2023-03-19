@@ -7,7 +7,7 @@ public class TuitionManagerController {
     @FXML
     public TextField FirstNameInput, LastNameInput, CreditsInput;
     public DatePicker DobInput;
-    public RadioButton MajorBAIT, MajorCS, MajorECE, MajorITI, MajorMATH;
+    public RadioButton MajorBAIT, MajorCS, MajorEE, MajorITI, MajorMATH;
     public RadioButton ResidentButton, NonResidentButton, TristateButton, TriNYButton, TriCTButton, IntlButton;
     public CheckBox StudyAbroad;
     /**
@@ -69,30 +69,67 @@ public class TuitionManagerController {
     }
 
     @FXML
+    protected void printByProfile() {
+        studentRoster.print(); //todo make print to output instead of console
+    }
+
+    @FXML
     protected void onAddButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
                 || DobInput == null || CreditsInput.getText().isEmpty()) {
             output.setText("Missing data to add student. Please check " +
-                    "first/last name, date of birth and/or completed " +
-                    "credits.");
+                    "first/last name, date of birth and/or completed credits.");
             return;
         }
-        System.out.println(FirstNameInput.getText());
-        System.out.println(LastNameInput.getText());
-        String dobString = DobInput.getValue().toString();
-        System.out.println(dobString);
-        if (MajorBAIT.isSelected()) {
-            System.out.println("BAIT");
-        } else if (MajorCS.isSelected()) {
-            System.out.println("CS");
-        } else if (MajorECE.isSelected()) {
-            System.out.println("ECE");
-        } else if (MajorITI.isSelected()) {
-            System.out.println("ITI");
-        } else if (MajorMATH.isSelected()) {
-            System.out.println("MATH");
+        String[] stuDetails = createStudent();
+        Date dob = new Date(DobInput.getValue().toString());
+        if (!dob.checkIfSixteen()) { //check age
+            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " is not 16 years or older.");
+            return;
         }
-        System.out.println("Credits completed: " + CreditsInput.getText());
+        String toAdd = String.join(" ", stuDetails);
+        Student student = null;
+        if (TriCTButton.isSelected()) {
+            student = new TriState(toAdd, "CT");
+        } else if (TriNYButton.isSelected()) {
+            student = new TriState(toAdd,"NY");
+        } else if (TristateButton.isSelected()) {
+            output.setText("Please select a state.");
+            return;
+        } else if (IntlButton.isSelected()) {
+            Boolean studyAbroad = false;
+            if (StudyAbroad.isSelected()) {
+                studyAbroad = true;
+            }
+            student = new International(toAdd, studyAbroad);
+        } else if (NonResidentButton.isSelected()) {
+            student = new NonResident(toAdd);
+        } else {
+            student = new Resident(toAdd);
+        }
+        if (studentRoster.contains(student)) {
+            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " is already in the roster.");
+        } else {
+            studentRoster.add(student);
+            output.setText(stuDetails[0] + " " + stuDetails[1] + " " + stuDetails[2] + " added to the roster.");
+        }
+    }
+
+    private String[] createStudent() {
+        String[] studentDetails = {FirstNameInput.getText(),
+                LastNameInput.getText(),DobInput.getValue().toString(),"",CreditsInput.getText()};
+        if (MajorBAIT.isSelected()) {
+            studentDetails[3] = "BAIT ";
+        } else if (MajorCS.isSelected()) {
+            studentDetails[3] = "CS ";
+        } else if (MajorEE.isSelected()) {
+            studentDetails[3] = "EE ";
+        } else if (MajorITI.isSelected()) {
+            studentDetails[3] = "ITI ";
+        } else if (MajorMATH.isSelected()) {
+            studentDetails[3] = "MATH ";
+        }
+        return studentDetails;
     }
 
 }
