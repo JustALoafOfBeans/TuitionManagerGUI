@@ -33,7 +33,7 @@ public class Enrollment {
      * @param enrollStudent new student to add
      */
     public void add(EnrollStudent enrollStudent) {
-        // Check if student in roster (if not, print error) // todo allowed to print here??
+        // Check if student in roster (if not, print error)
         // Check to see if student already enrolled
         int foundIndex = find(enrollStudent);
         if (foundIndex >= 0) {

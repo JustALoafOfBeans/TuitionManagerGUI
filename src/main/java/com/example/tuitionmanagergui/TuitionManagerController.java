@@ -9,7 +9,8 @@ import java.util.Scanner;
 public class TuitionManagerController {
     @FXML
     public TextField FirstNameInput, LastNameInput, CreditsInput, ScholarshipInput;
-    public DatePicker DobInput;
+    public TextField EnrollFirst, EnrollLast, EnrollCred;
+    public DatePicker DobInput, EnrollDob;
     public RadioButton MajorBAIT, MajorCS, MajorEE, MajorITI, MajorMATH;
     public RadioButton ResidentButton, NonResidentButton, TristateButton, TriNYButton, TriCTButton, IntlButton;
     public CheckBox StudyAbroad;
@@ -110,6 +111,36 @@ public class TuitionManagerController {
     protected void printSchoolSOE() {
         String printSOE = studentRoster.print("SOE");
         output.setText(printSOE);
+    }
+
+    @FXML
+    protected void onEnrollButton() {
+        String first = EnrollFirst.getText();
+        String last = EnrollLast.getText();
+        String cred = EnrollCred.getText();
+        // Check if inputs valid (empty inputs, <16 y/o, if in roster)
+        if (first.isEmpty() || last.isEmpty() || EnrollDob == null || cred.isEmpty()) {
+            output.setText("Missing data to enroll student. Please check first/last name," +
+                    " date of birth, or credit load.");
+            return;
+        }
+        Date dob = new Date(EnrollDob.getValue().toString());
+        if (!dob.checkIfSixteen()) {
+            output.setText("DOB invalid: " + dob + " younger than 16 years old.");
+            return;
+        }
+        if (!validEnrollCredits(cred)) {
+            return;
+        }
+        String[] stuDetails = {first, last, EnrollDob.getValue().toString(), "", cred};
+        // Student checkRosterStu = createStudent()
+        Profile tempProf = new Profile(first + " " + last + " " + dob);
+        Student tempStu = new Resident(tempProf);
+        if (!studentRoster.contains(tempStu)) {
+            System.out.println("ERROR: student not in roster");
+        } else {
+            System.out.println("Go ahead and add"); // todo
+        }
     }
 
     @FXML
@@ -268,6 +299,23 @@ public class TuitionManagerController {
         }
         if(Integer.parseInt(credits) < INIT) {
             output.setText("Credits completed invalid: cannot be negative!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validEnrollCredits(String credits) {
+        char[] digits = credits.toCharArray();
+        for (int i = 0; i < digits.length; i++) {
+            if (i == INIT && digits[0] == '-') {
+                continue; // exception made for negative values
+            } else if (!Character.isDigit(digits[i])) {
+                output.setText("Current credit load invalid: not an integer!");
+                return false;
+            }
+        }
+        if(Integer.parseInt(credits) < INIT) {
+            output.setText("Current credit load invalid: cannot be negative!");
             return false;
         }
         return true;

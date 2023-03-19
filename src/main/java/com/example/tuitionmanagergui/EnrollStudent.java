@@ -20,9 +20,9 @@ public class EnrollStudent {
      * @param enrollInput student profile and credits as string
      */
     public EnrollStudent(String enrollInput) { // Constructor
-        // todo check input, takes in String eg. "Emma Miller 2/28/2003 8"
+        // input takes in String eg. "Emma Miller 2/28/2003 8"
         // Expect profile to conclude just before 3rd space
-        String profileStr = "", creditStr = ""; // todo is this syntax legal for Chang
+        String profileStr = "", creditStr = "";
         int spaceCount = 0;
         for (int ind = 0; ind < enrollInput.length(); ind++) {
             if (enrollInput.charAt(ind) == ' ') { // Look for " " delimiter

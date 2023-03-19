@@ -33,26 +33,15 @@ public class Profile implements Comparable<Profile> {
      * @param profInput Profile input string
      */
     public Profile(String profInput) {
-        int tokenStart = 0, tokenEnd, tokenNum = 0;
-
-        for (int ind = 0; ind < profInput.length(); ind++) {
-            // Check for space delimiter
-            if (profInput.charAt(ind) == ' ') {
-                tokenEnd = ind;
-                if (tokenNum == 0) { // First name
-                    fname = profInput.substring(tokenStart, tokenEnd);
-                } else if (tokenNum == 1) { // Last name
-                    lname = profInput.substring(tokenStart, tokenEnd);
-                }
-                tokenNum += 1; // Count tokens taken in already
-                tokenStart = tokenEnd + 1; // Reset next token start
-            }
-            // Take in last token since no space delimiter
-            if (ind == profInput.length() - 1) {
-                tokenEnd = ind + 1;
-                String strDob = profInput.substring(tokenStart, tokenEnd);
-                dob = new Date(strDob);
-            }
+        String[] profBreakdown = profInput.split(" ");
+        this.fname = profBreakdown[0];
+        this.lname = profBreakdown[1];
+        String[] dateBreakdown = profBreakdown[2].split("/");
+        if (dateBreakdown.length == 1) { // Date delimiter "-"
+            this.dob = new Date(profBreakdown[2]);
+        } else { // Date delimiter "/"
+            String dateStr = dateBreakdown[2] + "-" + dateBreakdown[0] + "-" + dateBreakdown[1];
+            this.dob = new Date(dateStr);
         }
     }
 
