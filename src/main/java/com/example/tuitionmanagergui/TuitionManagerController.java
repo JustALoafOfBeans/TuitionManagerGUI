@@ -235,7 +235,7 @@ public class TuitionManagerController {
         } else {
             String enrollStr = first + " " + last + " " + dob + " " + cred;
             EnrollStudent newStu = new EnrollStudent(enrollStr);
-            enrolledStudents.add(newStu);
+            enrolledStudents.add(newStu); //todo verify if enrolled credit value is valid
             if (enrolledStudents.contains(newStu)) {
                 output.setText("Added to enrollment"); // todo
             }
@@ -243,7 +243,31 @@ public class TuitionManagerController {
         clearEnrollFields();
     }
 
-
+    /**
+     * On click "Drop" button. Drops a student from the enroll list if they
+     * are already enrolled. Throw error if they are not enrolled.
+     */
+    @FXML
+    protected void onDropButtonClick() {
+        if (EnrollFirst.getText().isEmpty() || EnrollLast.getText().isEmpty() || EnrollDob == null ) {
+            output.setText("Missing data to drop student. Please check " +
+                    "first/last name, and/or date of birth.");
+            return;
+        }
+        Date dob = new Date(EnrollDob.getValue().toString());
+        if (!dob.checkIfSixteen()) {
+            output.setText("DOB invalid: " + dob + " younger than 16 years old.");
+            return;
+        }
+        String stuDetails = EnrollFirst.getText() + " " + EnrollLast.getText() + " " + EnrollDob.getValue().toString();
+        EnrollStudent tempStu = new EnrollStudent(stuDetails + " 12");
+        if (enrolledStudents.contains(tempStu)) {
+            enrolledStudents.remove(tempStu);
+            output.setText(stuDetails + " dropped.");
+        } else {
+            output.setText(stuDetails + " is not enrolled.");
+        }
+    }
 
     /**
      * On click "Load from File" button. Reads input from studentList.txt and
@@ -494,6 +518,7 @@ public class TuitionManagerController {
      * @return String array of a student's details.
      */
     private String[] createStudentArr() {
+        //todo handle leading and trailing spaces
         String[] studentDetails = {FirstNameInput.getText(),
                 LastNameInput.getText(),DobInput.getValue().toString(),"",CreditsInput.getText()};
         if (MajorBAIT.isSelected()) {

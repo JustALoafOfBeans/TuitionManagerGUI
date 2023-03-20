@@ -194,7 +194,7 @@
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#onEnrollButton" text="Enroll" textAlignment="CENTER" />
                                           <Region prefHeight="200.0" prefWidth="50.0" HBox.hgrow="NEVER" />
-                                          <Button mnemonicParsing="false" text="Drop" />
+                                          <Button mnemonicParsing="false" onAction="#onDropButtonClick" text="Drop" />
                                        </children>
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
