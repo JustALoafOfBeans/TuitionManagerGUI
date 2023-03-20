@@ -243,6 +243,8 @@ public class TuitionManagerController {
         clearEnrollFields();
     }
 
+
+
     /**
      * On click "Load from File" button. Reads input from studentList.txt and
      * adds the students to the roster.
@@ -339,7 +341,7 @@ public class TuitionManagerController {
     protected void onChangeMajorButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
                 || DobInput == null ) {
-            output.setText("Missing data to add student. Please check " +
+            output.setText("Missing data to change major. Please check " +
                     "first/last name, and/or date of birth.");
             return;
         }
@@ -363,9 +365,9 @@ public class TuitionManagerController {
     @FXML
     protected void onRemoveButtonClick() {
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
-                || DobInput == null || CreditsInput.getText().isEmpty()) {
-            output.setText("Missing data to add student. Please check " +
-                    "first/last name, date of birth and/or completed credits.");
+                || DobInput == null) {
+            output.setText("Missing data to remove student. Please check " +
+                    "first/last name and/or date of birth.");
             return;
         }
         String student =
