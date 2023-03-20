@@ -268,7 +268,71 @@ public class TuitionManagerController {
         return strStudent;
     }
 
-    //todo onChangeScholarshipButtonClick()
+    /**
+     * On click "Change Scholarship" button. Updates the student's
+     * scholarship value if they are a Resident and throws an error if they
+     * are not eligible or the amount is not an integer.
+     */
+    @FXML
+    protected void onChangeScholarshipButtonClick() {
+        if (EnrollFirst.getText().isEmpty() || EnrollLast.getText().isEmpty()
+                || EnrollDob == null || ScholarshipInput.getText().isEmpty()) {
+            output.setText("Missing data to change scholarship. Please check " +
+                    "first/last name, date of birth, and scholarship value.");
+            return;
+        }
+        Date dob = new Date(EnrollDob.getValue().toString());
+        if (!dob.checkIfSixteen()) {
+            output.setText("DOB invalid: " + dob + " younger than 16 years old.");
+            return;
+        }
+        String[] prf = {EnrollFirst.getText(), EnrollLast.getText(), EnrollDob.getValue().toString()};
+        String student = String.join(" ", prf);
+        EnrollStudent stuObj = new EnrollStudent(student + " 12");
+        if (enrolledStudents.contains(stuObj)) {
+            Profile tempProfile = new Profile(student);
+            Student tempStudent = new Resident(tempProfile);
+            Student toGiveScholarship = studentRoster.getStudent(tempStudent);
+            if (toGiveScholarship.isResident()) {
+                residentScholarship(toGiveScholarship, ScholarshipInput.getText(), student);
+            } else {
+                output.setText(student + " (" + toGiveScholarship.returnType()
+                        + ") is not eligible for the scholarship.");
+            }
+        } else {
+            output.setText(student + " is not in the enrollment list.");
+        }
+    }
+
+    /**
+     * Helper function for onChangeScholarshipButtonClick(). Updates the
+     * student's scholarship if valid request.
+     * @param foundStudent Student object to give scholarship to.
+     * @param value String representation of the scholarship value to give.
+     * @param student String representation of the student's details.
+     */
+    private void residentScholarship(Student foundStudent, String value, String student) {
+        int PARTTIME = 12;
+        Resident toGive = (Resident) foundStudent;
+        char[] digits = value.toCharArray();
+        for (int i = 0; i < digits.length; i++) {
+            if (!Character.isDigit(digits[i])) {
+                output.setText("Amount is not an integer.");
+                return;
+            }
+        }
+        EnrollStudent temp = new EnrollStudent(student + " 12");
+        EnrollStudent stuObj = enrolledStudents.getStudent(temp);
+        int scholarship = Integer.parseInt(value);
+        if (scholarship > 10000 || scholarship < 1) {
+            output.setText(scholarship + ": invalid amount.");
+        } else if (stuObj.getCredits() < PARTTIME) {
+            output.setText(student + " part time student is not eligible for the scholarship.");
+        } else { //assign scholarship
+            toGive.assignScholarship(scholarship);
+            output.setText(student + ": scholarship amount updated.");
+        }
+    }
 
     /**
      * On click "Enroll" button. Enrolls the student to the enrollment list if
@@ -300,6 +364,7 @@ public class TuitionManagerController {
         Student tempStu = new Resident(tempProf);
         if (!studentRoster.contains(tempStu)) {
             output.setText("Can not enroll: Student not in roster");
+            return;
         } else {
             String enrollStr = first + " " + last + " " + dob + " " + cred;
             EnrollStudent newStu = new EnrollStudent(enrollStr);
