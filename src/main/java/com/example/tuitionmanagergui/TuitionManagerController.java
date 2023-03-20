@@ -21,11 +21,11 @@ public class TuitionManagerController {
      */
     public TextField FirstNameInput, LastNameInput, CreditsInput, ScholarshipInput;
     public TextField EnrollFirst, EnrollLast, EnrollCred;
-    public DatePicker DobInput, EnrollDob;
     /**
      * Init date picker object for Roster
      */
-    public DatePicker DobInput;
+    public DatePicker DobInput, EnrollDob;
+
     /**
      * Init radio buttons for Roster majors
      */
