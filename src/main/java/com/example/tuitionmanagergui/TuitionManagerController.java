@@ -366,11 +366,18 @@ public class TuitionManagerController {
             output.setText("Can not enroll: Student not in roster");
             return;
         } else {
-            String enrollStr = first + " " + last + " " + dob + " " + cred;
-            EnrollStudent newStu = new EnrollStudent(enrollStr);
-            enrolledStudents.add(newStu); //todo verify if enrolled credit value is valid
-            if (enrolledStudents.contains(newStu)) {
-                output.setText("Added to enrollment"); // todo
+            // Check if enrolled credit value valid
+            Student rostStu = studentRoster.getStudent(tempStu); // Gets matching student
+            if (rostStu.isValid(Integer.parseInt(cred))) {
+                String enrollStr = first + " " + last + " " + dob + " " + cred;
+                EnrollStudent newStu = new EnrollStudent(enrollStr);
+                enrolledStudents.add(newStu);
+                // Check if new student added
+                if (enrolledStudents.contains(newStu)) {
+                    output.setText("Added to enrollment"); // todo
+                }
+            } else {
+                output.setText("Can not enroll: Invalid credit load");
             }
         }
         clearEnrollFields();
