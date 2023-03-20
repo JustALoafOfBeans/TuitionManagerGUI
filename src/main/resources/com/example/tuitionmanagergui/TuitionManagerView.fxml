@@ -242,7 +242,7 @@
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#printEnrollment" text="Print Enrolled Student" />
                                           <Button mnemonicParsing="false" onAction="#printTuition" text="Print Tuition Due" />
-                                          <Button mnemonicParsing="false" text="Semester End" />
+                                          <Button mnemonicParsing="false" onAction="#onSemesterEndButtonClick" text="Semester End" />
                                        </children>
                                     </VBox>
                                  </content>

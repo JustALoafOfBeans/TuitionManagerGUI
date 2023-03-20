@@ -213,6 +213,64 @@ public class TuitionManagerController {
     }
 
     /**
+     * On click "Semester End" button. Adds enrolled credits to completed
+     * credits in roster and prints all students eligible for graduation.
+     */
+    @FXML
+    protected void onSemesterEndButtonClick() {
+        String printStr = "";
+        int credsComplete = INIT;
+        int GRADCREDITS = 120;
+        Profile[] students = enrolledStudents.getGraduates();
+        if (students.length == INIT) {
+            printStr = "Enrollment is empty!\n";
+        } else {
+            printStr += "Credit completed has been updated.\n";
+            printStr += "** list of students eligible for graduation **\n";
+            for (int ind = INIT; ind < students.length; ind++) {
+                Profile tempProfile = students[ind];
+                Student tempStudent = new Resident(tempProfile);
+                Student studentR = studentRoster.getStudent(tempStudent);
+                EnrollStudent stuObj = new EnrollStudent(students[ind] + " 12");
+                EnrollStudent studentE = enrolledStudents.getStudent(stuObj);
+
+                credsComplete = studentR.getCreditCompleted() + studentE.getCredits();
+
+                studentR.updateCreditCompleted(credsComplete);
+                if (credsComplete >= GRADCREDITS) {
+                    printStr += printGrad(studentR) + "\n";
+                }
+            }
+        }
+        output.setText(printStr);
+    }
+
+    /**
+     * Helper method which returns the graduate student in the proper format.
+     * @param studentR Student object for the student which needs to be printed.
+     * @return String representing the student and details.
+     */
+    private String printGrad(Student studentR) {
+        String strStudent = studentR.toString() + " ";
+
+        if (studentR.isResident()) {
+            strStudent += "(resident)";
+        } else {
+            strStudent += "(non-resident) ";
+            if (studentR.returnType().equals("International Student")) {
+                strStudent += "(international)";
+            } else if (studentR.returnType().contains("state")) {
+                String needState = studentR.returnType();
+                String[] state = needState.split(" ");
+                strStudent += "(tri-state:" + state[1] + ")";
+            }
+        }
+        return strStudent;
+    }
+
+    //todo onChangeScholarshipButtonClick()
+
+    /**
      * On click "Enroll" button. Enrolls the student to the enrollment list if
      * the student is already in the roster. Throw error message if the student is
      * not in the roster or is already enrolled.
