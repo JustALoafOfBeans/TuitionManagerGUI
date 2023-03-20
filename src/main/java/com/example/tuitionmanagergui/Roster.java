@@ -145,11 +145,11 @@ public class Roster {
         if (size == 0) {
             printStr = "Student roster is empty!\n";
         } else {
-            printStr += "* Student roster sorted by last name, first name, DOB **\n";
+            printStr += "** Student roster sorted by last name, first name, DOB **\n";
             for (int ind = 0; ind < size; ind++) {
                 printStr += roster[ind].toString() + "\n";
             }
-            printStr += "* end of roster **\n";
+            printStr += "** end of roster **\n";
         }
         return printStr;
     }

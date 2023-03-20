@@ -192,6 +192,21 @@ public class TuitionManagerController {
         output.setText(printSOE);
     }
 
+    /**
+     * On click "Print Enrolled Student" button. Outputs list of enrolled
+     * students to GUI sorted by profile.
+     */
+    @FXML
+    protected void printEnrollment() {
+        String printEnroll = enrolledStudents.print();
+        output.setText(printEnroll);
+    }
+
+    /**
+     * On click "Enroll" button. Enrolls the student to the enrollment list if
+     * the student is already in the roster. Throw error message if the student is
+     * not in the roster or is already enrolled.
+     */
     @FXML
     protected void onEnrollButton() {
         String first = EnrollFirst.getText();
@@ -216,15 +231,16 @@ public class TuitionManagerController {
         Profile tempProf = new Profile(first + " " + last + " " + dob);
         Student tempStu = new Resident(tempProf);
         if (!studentRoster.contains(tempStu)) {
-            System.out.println("Can not enroll: Student not in roster");
+            output.setText("Can not enroll: Student not in roster");
         } else {
             String enrollStr = first + " " + last + " " + dob + " " + cred;
             EnrollStudent newStu = new EnrollStudent(enrollStr);
             enrolledStudents.add(newStu);
             if (enrolledStudents.contains(newStu)) {
-                System.out.println("Added to enrollment"); // todo
+                output.setText("Added to enrollment"); // todo
             }
         }
+        clearEnrollFields();
     }
 
     /**
@@ -505,6 +521,17 @@ public class TuitionManagerController {
         ResidentButton.setSelected(true);
         onResidentTrue();
         ScholarshipInput.clear();
+    }
+
+    /**
+     * Helper method clears all fields on the Enroll page. Used after
+     * successfully completing an event.
+     */
+    private void clearEnrollFields() {
+        EnrollFirst.clear();
+        EnrollLast.clear();
+        EnrollDob.setValue(null);
+        EnrollCred.clear();
     }
 
 }

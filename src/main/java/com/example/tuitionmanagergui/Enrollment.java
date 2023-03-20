@@ -112,16 +112,18 @@ public class Enrollment {
     /**
      Method that prints out enrollment in order of addition
      */
-    public void print() {
+    public String print() {
+        String printStr = "";
         if (size == STARTSIZE) {
-            System.out.println("Enrollment is empty!");
-            return;
+            printStr = "Enrollment is empty!\n";
+        } else {
+            printStr += "** Enrollment **\n";
+            for (int ind = 0; ind < size; ind++) {
+                printStr += enrollStudents[ind].toString() + "\n";
+            }
+            printStr += "** end of enrollment **\n";
         }
-        System.out.println("** Enrollment **");
-        for (int ind = 0; ind < size; ind++) {
-            System.out.println(enrollStudents[ind].toString());
-        }
-        System.out.println("* end of enrollment *");
+        return printStr;
     }
 
     /**
