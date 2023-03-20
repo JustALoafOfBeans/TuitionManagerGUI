@@ -137,9 +137,14 @@ public class TuitionManagerController {
         Profile tempProf = new Profile(first + " " + last + " " + dob);
         Student tempStu = new Resident(tempProf);
         if (!studentRoster.contains(tempStu)) {
-            System.out.println("ERROR: student not in roster");
+            System.out.println("Can not enroll: Student not in roster");
         } else {
-            System.out.println("Go ahead and add"); // todo
+            String enrollStr = first + " " + last + " " + dob + " " + cred;
+            EnrollStudent newStu = new EnrollStudent(enrollStr);
+            enrolledStudents.add(newStu);
+            if (enrolledStudents.contains(newStu)) {
+                System.out.println("Added to enrollment"); // todo
+            }
         }
     }
 
