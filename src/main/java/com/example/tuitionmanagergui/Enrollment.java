@@ -130,37 +130,38 @@ public class Enrollment {
      Method that prints out enrollment as well as each student's tuition
      * @param rost uses roster of students to get profiles
      */
-    public void printTuition(Roster rost) {
+    public String printTuition(Roster rost) {
+        String printStr = "";
         // Get array of roster students
         Student[] rostArr = rost.getStudentArr();
         if (rostArr.length == STARTSIZE) {
-            System.out.println("Student roster is empty!");
-            return;
+            printStr = ("Student roster is empty!\n");
         } else if (size == STARTSIZE) {
-            System.out.println("Enrollment is empty!");
-            return;
-        }
-        Profile enrollProf;
-        int profIndex;
-        String tuitionStr;
-        double tuitionDouble;
-        System.out.println("** Tuition due **");
-        // For each student in enrollArr, find profile in Roster and print details
-        for (int eInd = 0; eInd < size; eInd++) {
-            enrollProf = enrollStudents[eInd].getProfile();
-            // Find student in roster that matches profile
-            profIndex = findProfile(enrollProf, rostArr); // todo should not be -1 (not found in roster)
+            printStr = "Enrollment is empty!\n";
+        } else {
+            Profile enrollProf;
+            int profIndex;
+            String tuitionStr;
+            double tuitionDouble;
+            printStr += "** Tuition due **\n";
+            // For each student in enrollArr, find profile in Roster and print details
+            for (int eInd = 0; eInd < size; eInd++) {
+                enrollProf = enrollStudents[eInd].getProfile();
+                // Find student in roster that matches profile
+                profIndex = findProfile(enrollProf, rostArr); // todo should not be -1 (not found in roster)
 
-            // Print tuition
-            tuitionStr = rostArr[profIndex].getProfile().toString() + " (";
-            tuitionStr += rostArr[profIndex].returnType() + ") enrolled ";
-            tuitionStr += enrollStudents[eInd].getCredits() + " credits: tuition due: $";
-            tuitionDouble = rostArr[profIndex].tuitionDue(enrollStudents[eInd].getCredits());
-            tuitionStr += String.format("%,.2f", tuitionDouble);
+                // Print tuition
+                tuitionStr = rostArr[profIndex].getProfile().toString() + " (";
+                tuitionStr += rostArr[profIndex].returnType() + ") enrolled ";
+                tuitionStr += enrollStudents[eInd].getCredits() + " credits: tuition due: $";
+                tuitionDouble = rostArr[profIndex].tuitionDue(enrollStudents[eInd].getCredits());
+                tuitionStr += String.format("%,.2f", tuitionDouble);
 
-            System.out.println(tuitionStr);
+                printStr += tuitionStr + "\n";
+            }
+            printStr += "** end of tuition due **\n";
         }
-        System.out.println("* end of tuition due *");
+        return printStr;
     }
 
     /**

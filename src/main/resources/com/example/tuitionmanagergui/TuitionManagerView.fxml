@@ -241,7 +241,7 @@
                                     <VBox prefWidth="100.0" spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#printEnrollment" text="Print Enrolled Student" />
-                                          <Button mnemonicParsing="false" text="Print Tuition Due" />
+                                          <Button mnemonicParsing="false" onAction="#printTuition" text="Print Tuition Due" />
                                           <Button mnemonicParsing="false" text="Semester End" />
                                        </children>
                                     </VBox>

@@ -203,6 +203,16 @@ public class TuitionManagerController {
     }
 
     /**
+     * On click "Print Tuition Due" button. Outputs list of enrolled
+     * students to GUI sorted by profile with corresponding tuition amount.
+     */
+    @FXML
+    protected void printTuition() {
+        String printTui = enrolledStudents.printTuition(studentRoster);
+        output.setText(printTui);
+    }
+
+    /**
      * On click "Enroll" button. Enrolls the student to the enrollment list if
      * the student is already in the roster. Throw error message if the student is
      * not in the roster or is already enrolled.
