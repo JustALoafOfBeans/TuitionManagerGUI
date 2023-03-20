@@ -22,6 +22,9 @@ public class TuitionManagerMain extends Application {
         stage.show();
     }
 
+    /**
+     * Main function that launches Tuition Manager GUI
+     */
     public static void main(String[] args) {
         launch();
     }

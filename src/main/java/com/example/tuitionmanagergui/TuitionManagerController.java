@@ -20,6 +20,9 @@ public class TuitionManagerController {
      * Init text fields for Roster object
      */
     public TextField FirstNameInput, LastNameInput, CreditsInput, ScholarshipInput;
+    /**
+     * Init text fields for Enroll object
+     */
     public TextField EnrollFirst, EnrollLast, EnrollCred;
     /**
      * Init date picker object for Roster
@@ -44,6 +47,10 @@ public class TuitionManagerController {
      * text with the desired String.
      */
     public TextArea output;
+    /**
+     * Add button for Roster
+     */
+    public Button RostAddBtn;
     /**
      * Init roster object
      */
@@ -605,6 +612,11 @@ public class TuitionManagerController {
         return true;
     }
 
+    /**
+     * Private function that checks if enroll credit load valid
+     * @param credits credit load in String form
+     * @return true if valid value (positive number)
+     */
     private boolean validEnrollCredits(String credits) {
         char[] digits = credits.toCharArray();
         for (int i = 0; i < digits.length; i++) {
@@ -699,6 +711,7 @@ public class TuitionManagerController {
         EnrollLast.clear();
         EnrollDob.setValue(null);
         EnrollCred.clear();
+        ScholarshipInput.clear();
     }
 
 }

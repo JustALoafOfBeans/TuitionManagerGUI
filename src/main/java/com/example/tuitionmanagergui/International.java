@@ -83,7 +83,7 @@ public class International extends NonResident {
     public String returnType() {
         String ans = "International Student";
         if (isStudyAbroad) {
-            ans += "study abroad";
+            ans += ", study abroad";
         }
         return ans;
     }

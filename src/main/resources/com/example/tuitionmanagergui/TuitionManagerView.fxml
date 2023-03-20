@@ -129,7 +129,7 @@
                                 <buttons>
                                     <HBox alignment="CENTER" prefHeight="40.0" prefWidth="700.0">
                                        <children>
-                                        <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" textAlignment="CENTER" />
+                                        <Button fx:id = "RostAddBtn" mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" textAlignment="CENTER" />
                                           <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                           <Button mnemonicParsing="false" onAction="#onRemoveButtonClick" text="Remove" />
                                           <Region layoutX="98.0" layoutY="10.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
