@@ -374,7 +374,7 @@ public class TuitionManagerController {
                 enrolledStudents.add(newStu);
                 // Check if new student added
                 if (enrolledStudents.contains(newStu)) {
-                    output.setText("Added to enrollment"); // todo
+                    output.setText(newStu.getProfile().toString() + " enrolled with " + cred + " credits.");
                 }
             } else {
                 output.setText("Can not enroll: Invalid credit load");
