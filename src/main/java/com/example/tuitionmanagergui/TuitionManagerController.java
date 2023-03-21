@@ -282,6 +282,9 @@ public class TuitionManagerController {
      */
     @FXML
     protected void onChangeScholarshipButtonClick() {
+        String first = EnrollFirst.getText().strip();
+        String last = EnrollLast.getText().strip();
+        String scholarship = ScholarshipInput.getText().strip();
         if (EnrollFirst.getText().isEmpty() || EnrollLast.getText().isEmpty()
                 || EnrollDob == null || ScholarshipInput.getText().isEmpty()) {
             output.setText("Missing data to change scholarship. Please check " +
@@ -293,7 +296,12 @@ public class TuitionManagerController {
             output.setText("DOB invalid: " + dob + " younger than 16 years old.");
             return;
         }
-        String[] prf = {EnrollFirst.getText(), EnrollLast.getText(), EnrollDob.getValue().toString()};
+        if (first.matches(".*\\s.*") || last.matches(".*\\s.*") || scholarship.matches(
+                ".*\\s.*")) {
+            output.setText("First name, last name, and scholarship cannot contain spaces.");
+            return;
+        }
+        String[] prf = {first, last, EnrollDob.getValue().toString()};
         String student = String.join(" ", prf);
         EnrollStudent stuObj = new EnrollStudent(student + " 12");
         if (enrolledStudents.contains(stuObj)) {
@@ -301,7 +309,7 @@ public class TuitionManagerController {
             Student tempStudent = new Resident(tempProfile);
             Student toGiveScholarship = studentRoster.getStudent(tempStudent);
             if (toGiveScholarship.isResident()) {
-                residentScholarship(toGiveScholarship, ScholarshipInput.getText(), student);
+                residentScholarship(toGiveScholarship, scholarship, student);
             } else {
                 output.setText(student + " (" + toGiveScholarship.returnType()
                         + ") is not eligible for the scholarship.");
@@ -348,9 +356,9 @@ public class TuitionManagerController {
      */
     @FXML
     protected void onEnrollButton() {
-        String first = EnrollFirst.getText();
-        String last = EnrollLast.getText();
-        String cred = EnrollCred.getText();
+        String first = EnrollFirst.getText().strip();
+        String last = EnrollLast.getText().strip();
+        String cred = EnrollCred.getText().strip();
         // Check if inputs valid (empty inputs, <16 y/o, if in roster)
         if (first.isEmpty() || last.isEmpty() || EnrollDob == null || cred.isEmpty()) {
             output.setText("Missing data to enroll student. Please check first/last name," +
@@ -363,6 +371,10 @@ public class TuitionManagerController {
             return;
         }
         if (!validEnrollCredits(cred)) {
+            return;
+        }
+        if (first.matches(".*\\s.*") || last.matches(".*\\s.*") || cred.matches(".*\\s.*")) {
+            output.setText("First name, last name, and credits cannot contain spaces.");
             return;
         }
         String[] stuDetails = {first, last, EnrollDob.getValue().toString(), "", cred};
@@ -396,6 +408,8 @@ public class TuitionManagerController {
      */
     @FXML
     protected void onDropButtonClick() {
+        String first = EnrollFirst.getText().strip();
+        String last = EnrollLast.getText().strip();
         if (EnrollFirst.getText().isEmpty() || EnrollLast.getText().isEmpty() || EnrollDob == null ) {
             output.setText("Missing data to drop student. Please check " +
                     "first/last name, and/or date of birth.");
@@ -406,7 +420,11 @@ public class TuitionManagerController {
             output.setText("DOB invalid: " + dob + " younger than 16 years old.");
             return;
         }
-        String stuDetails = EnrollFirst.getText() + " " + EnrollLast.getText() + " " + EnrollDob.getValue().toString();
+        if (first.matches(".*\\s.*") || last.matches(".*\\s.*")) {
+            output.setText("First name, last name, and credits cannot contain spaces.");
+            return;
+        }
+        String stuDetails = first + " " + last + " " + EnrollDob.getValue().toString();
         EnrollStudent tempStu = new EnrollStudent(stuDetails + " 12");
         if (enrolledStudents.contains(tempStu)) {
             enrolledStudents.remove(tempStu);
@@ -517,6 +535,9 @@ public class TuitionManagerController {
             return;
         }
         String[] studentDetails = createStudentArr();
+        if (studentDetails == null) {
+            return;
+        }
         String student =
                 studentDetails[0] + " " + studentDetails[1] + " " + studentDetails[2];
         Profile toChange = new Profile(student);
@@ -535,23 +556,26 @@ public class TuitionManagerController {
      */
     @FXML
     protected void onRemoveButtonClick() {
+        String fname = FirstNameInput.getText().strip();
+        String lname = LastNameInput.getText().strip();
         if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
                 || DobInput == null) {
             output.setText("Missing data to remove student. Please check " +
                     "first/last name and/or date of birth.");
             return;
         }
+        if (fname.matches(".*\\s.*") || lname.matches(".*\\s.*")) {
+            output.setText("First and last name cannot contain spaces.");
+            return;
+        }
         String student =
-                FirstNameInput.getText() + " " + LastNameInput.getText() + " " +
-                DobInput.getValue().toString() + " FAKE 50";
+                fname + " " + lname + " " + DobInput.getValue().toString() + " FAKE 50";
         Student toRemove = new Resident(student);
         if (studentRoster.contains(toRemove)) {
             studentRoster.remove(toRemove);
-            output.setText(FirstNameInput.getText() + " " + LastNameInput.getText() + " " +
-                    DobInput.getValue().toString() + " removed from the roster.");
+            output.setText(fname + " " + lname + " " + DobInput.getValue().toString() + " removed from the roster.");
         } else {
-            output.setText(FirstNameInput.getText() + " " + LastNameInput.getText() + " " +
-                    DobInput.getValue().toString() + " is not in the roster.");
+            output.setText(fname + " " + lname + " " + DobInput.getValue().toString() + " is not in the roster.");
         }
         clearRosterFields();
     }
@@ -563,12 +587,16 @@ public class TuitionManagerController {
      */
     @FXML
     protected void onAddButtonClick() {
-        if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty() || DobInput == null || CreditsInput.getText().isEmpty()) {
+        if (FirstNameInput.getText().isEmpty() || LastNameInput.getText().isEmpty()
+                || DobInput == null || CreditsInput.getText().isEmpty()) {
             output.setText("Missing data to add student. Please check " +
                     "first/last name, date of birth and/or completed credits.");
             return;
         }
         String[] stuDetails = createStudentArr();
+        if (stuDetails == null) {
+            return;
+        }
         Date dob = new Date(DobInput.getValue().toString());
         if (!dob.checkIfSixteen()) { //check age
             output.setText("DOB invalid: " + dob + " younger than 16 years old.");
@@ -670,9 +698,12 @@ public class TuitionManagerController {
      * @return String array of a student's details.
      */
     private String[] createStudentArr() {
-        //todo handle leading and trailing spaces
-        String[] studentDetails = {FirstNameInput.getText(),
-                LastNameInput.getText(),DobInput.getValue().toString(),"",CreditsInput.getText()};
+        String[] studentDetails = {FirstNameInput.getText().strip(), LastNameInput.getText().strip(),
+                DobInput.getValue().toString(),"",CreditsInput.getText().strip()};
+        if (studentDetails[0].matches(".*\\s.*") || studentDetails[1].matches(".*\\s.*") || studentDetails[4].matches(".*\\s.*")) {
+            output.setText("First name, last name, and credits cannot contain spaces.");
+            return null;
+        }
         if (MajorBAIT.isSelected()) {
             studentDetails[3] = "BAIT";
         } else if (MajorCS.isSelected()) {
