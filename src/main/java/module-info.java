@@ -1,3 +1,7 @@
+/**
+ Opens Tuition Manager GUI
+ @author Victoria Chen, Bridget Zhang
+ */
 module com.example.tuitionmanagergui {
     requires javafx.controls;
     requires javafx.fxml;
@@ -5,9 +9,4 @@ module com.example.tuitionmanagergui {
 
     opens com.example.tuitionmanagergui to javafx.fxml;
     exports com.example.tuitionmanagergui;
-
-    /**
-     Opens Tuition Manager GUI
-     @author Victoria Chen, Bridget Zhang
-     */
 }

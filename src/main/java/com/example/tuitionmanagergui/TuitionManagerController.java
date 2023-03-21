@@ -187,8 +187,8 @@ public class TuitionManagerController {
     }
 
     /**
-     * On click SC&I print button. Outputs roster to GUI of students
-     * belonging to School of Communication & Information, sorted by profiles.
+     * On click SCI print button. Outputs roster to GUI of students
+     * belonging to School of Communication and Information, sorted by profiles.
      */
     @FXML
     protected void printSchoolSCI() {
