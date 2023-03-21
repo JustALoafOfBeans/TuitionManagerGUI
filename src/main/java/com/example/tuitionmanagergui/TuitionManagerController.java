@@ -238,6 +238,7 @@ public class TuitionManagerController {
                 Profile tempProfile = students[ind];
                 Student tempStudent = new Resident(tempProfile);
                 Student studentR = studentRoster.getStudent(tempStudent);
+                // 12 is arbitrary value just to create the EnrollStudent
                 EnrollStudent stuObj = new EnrollStudent(students[ind] + " 12");
                 EnrollStudent studentE = enrolledStudents.getStudent(stuObj);
 
@@ -303,6 +304,7 @@ public class TuitionManagerController {
         }
         String[] prf = {first, last, EnrollDob.getValue().toString()};
         String student = String.join(" ", prf);
+        // 12 is arbitrary value just to create the EnrollStudent
         EnrollStudent stuObj = new EnrollStudent(student + " 12");
         if (enrolledStudents.contains(stuObj)) {
             Profile tempProfile = new Profile(student);
@@ -328,6 +330,8 @@ public class TuitionManagerController {
      */
     private void residentScholarship(Student foundStudent, String value, String student) {
         int PARTTIME = 12;
+        int MAXSCHOLAR = 10000;
+        int MINSCHOLAR = 1;
         Resident toGive = (Resident) foundStudent;
         char[] digits = value.toCharArray();
         for (int i = 0; i < digits.length; i++) {
@@ -336,10 +340,11 @@ public class TuitionManagerController {
                 return;
             }
         }
+        // 12 is arbitrary value just to create the EnrollStudent
         EnrollStudent temp = new EnrollStudent(student + " 12");
         EnrollStudent stuObj = enrolledStudents.getStudent(temp);
         int scholarship = Integer.parseInt(value);
-        if (scholarship > 10000 || scholarship < 1) {
+        if (scholarship > MAXSCHOLAR || scholarship < MINSCHOLAR) {
             output.setText(scholarship + ": invalid amount.");
         } else if (stuObj.getCredits() < PARTTIME) {
             output.setText(student + " part time student is not eligible for the scholarship.");
@@ -359,10 +364,8 @@ public class TuitionManagerController {
         String first = EnrollFirst.getText().strip();
         String last = EnrollLast.getText().strip();
         String cred = EnrollCred.getText().strip();
-        // Check if inputs valid (empty inputs, <16 y/o, if in roster)
         if (first.isEmpty() || last.isEmpty() || EnrollDob == null || cred.isEmpty()) {
-            output.setText("Missing data to enroll student. Please check first/last name," +
-                    " date of birth, or credit load.");
+            output.setText("Missing data to enroll student. Please check first/last name, date of birth, or credit load.");
             return;
         }
         Date dob = new Date(EnrollDob.getValue().toString());
@@ -377,26 +380,22 @@ public class TuitionManagerController {
             output.setText("First name, last name, and credits cannot contain spaces.");
             return;
         }
-        String[] stuDetails = {first, last, EnrollDob.getValue().toString(), "", cred};
-        // Student checkRosterStu = createStudent()
-        Profile tempProf = new Profile(first + " " + last + " " + dob);
-        Student tempStu = new Resident(tempProf);
+        Student tempStu = new Resident(new Profile(first + " " + last + " " + dob));
         if (!studentRoster.contains(tempStu)) {
             output.setText("Can not enroll: Student not in roster");
             return;
         } else {
-            // Check if enrolled credit value valid
             Student rostStu = studentRoster.getStudent(tempStu); // Gets matching student
             if (rostStu.isValid(Integer.parseInt(cred))) {
                 String enrollStr = first + " " + last + " " + dob + " " + cred;
                 EnrollStudent newStu = new EnrollStudent(enrollStr);
                 enrolledStudents.add(newStu);
-                // Check if new student added
                 if (enrolledStudents.contains(newStu)) {
                     output.setText(newStu.getProfile().toString() + " enrolled with " + cred + " credits.");
                 }
             } else {
                 output.setText("Can not enroll: Invalid credit load");
+                return;
             }
         }
         clearEnrollFields();
@@ -421,10 +420,11 @@ public class TuitionManagerController {
             return;
         }
         if (first.matches(".*\\s.*") || last.matches(".*\\s.*")) {
-            output.setText("First name, last name, and credits cannot contain spaces.");
+            output.setText("First name and last name cannot contain spaces.");
             return;
         }
         String stuDetails = first + " " + last + " " + EnrollDob.getValue().toString();
+        // 12 is arbitrary value just to create the EnrollStudent
         EnrollStudent tempStu = new EnrollStudent(stuDetails + " 12");
         if (enrolledStudents.contains(tempStu)) {
             enrolledStudents.remove(tempStu);
@@ -469,13 +469,14 @@ public class TuitionManagerController {
      * @param parameters String array of the student's details
      */
     private void processFile(String opCode, String[] parameters) {
+        int SAINDEXCOUNT = 5;
         switch (opCode) {
             case "R":
                 ResidentButton.setSelected(true);
                 onAddButtonClick();
                 break;
             case "I":
-                if (parameters.length > 5 && parameters[6].equals("true")) {
+                if (parameters.length > SAINDEXCOUNT && parameters[6].equals("true")) {
                     StudyAbroad.setSelected(true);
                 }
                 IntlButton.setSelected(true);
