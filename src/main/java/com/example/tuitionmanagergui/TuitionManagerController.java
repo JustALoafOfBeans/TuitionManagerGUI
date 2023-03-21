@@ -105,6 +105,11 @@ public class TuitionManagerController {
     protected void onNonresidentTrue() {
         TristateButton.setDisable(false);
         IntlButton.setDisable(false);
+        TristateButton.setSelected(false);
+        IntlButton.setSelected(false);
+        TriNYButton.setSelected(false);
+        TriCTButton.setSelected(false);
+        StudyAbroad.setSelected(false);
     }
 
     /**
@@ -115,6 +120,7 @@ public class TuitionManagerController {
         TriNYButton.setDisable(false);
         TriCTButton.setDisable(false);
         StudyAbroad.setSelected(false);
+        NonResidentButton.setSelected(false);
     }
 
     /**
@@ -127,6 +133,7 @@ public class TuitionManagerController {
         TriCTButton.setDisable(true);
         TriCTButton.setSelected(false);
         StudyAbroad.setDisable(false);
+        NonResidentButton.setSelected(false);
     }
 
     /**
