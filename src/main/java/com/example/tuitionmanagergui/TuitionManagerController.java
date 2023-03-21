@@ -15,10 +15,10 @@ import java.util.Scanner;
  @author Victoria Chen, Bridget Zhang
  */
 public class TuitionManagerController {
-    @FXML
     /**
      * Init text fields for Roster object
      */
+    @FXML
     public TextField FirstNameInput, LastNameInput, CreditsInput, ScholarshipInput;
     /**
      * Init text fields for Enroll object

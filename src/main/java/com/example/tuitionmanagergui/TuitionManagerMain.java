@@ -12,6 +12,9 @@ import java.io.IOException;
  @author Victoria Chen, Bridget Zhang
  */
 public class TuitionManagerMain extends Application {
+    /**
+     * Method that starts GUI and sets stage
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TuitionManagerMain.class.getResource("TuitionManagerView.fxml"));
@@ -24,6 +27,7 @@ public class TuitionManagerMain extends Application {
 
     /**
      * Main function that launches Tuition Manager GUI
+     * @param args String array of arguments
      */
     public static void main(String[] args) {
         launch();

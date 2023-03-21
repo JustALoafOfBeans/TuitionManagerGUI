@@ -136,6 +136,7 @@ public class Roster {
 
     /**
      Prints roster sorted by student profiles
+     @return All students in roster as String to print
      */
     public String print() {
         String printStr = "";
@@ -157,6 +158,7 @@ public class Roster {
     /**
      Print students belonging to a specified school, sorted by profiles
      * @param targetSchool school from which to print students
+     * @return All students in school from roster as String to print
      */
     public String print(String targetSchool) {
         String printStr = "";
@@ -192,6 +194,7 @@ public class Roster {
 
     /**
      Prints roster sorted by student majors (alphabetical) and profile
+     @return Students in roster sorted by majors as String to print
      */
     public String printBySchoolMajor() {
         String printStr = "";
@@ -212,6 +215,7 @@ public class Roster {
 
     /**
      Prints roster sorted by student standing (alphabetical) and profile
+     @return Students in roster sorted by standing as String to print
      */
     public String printByStanding() {
         String printStr = "";

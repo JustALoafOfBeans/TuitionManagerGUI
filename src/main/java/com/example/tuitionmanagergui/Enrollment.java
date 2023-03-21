@@ -111,6 +111,7 @@ public class Enrollment {
 
     /**
      Method that prints out enrollment in order of addition
+     @return All students in enrollment as String to print
      */
     public String print() {
         String printStr = "";
@@ -129,6 +130,7 @@ public class Enrollment {
     /**
      Method that prints out enrollment as well as each student's tuition
      * @param rost uses roster of students to get profiles
+     * @return Tuition of students in enrollment as String to print
      */
     public String printTuition(Roster rost) {
         String printStr = "";
